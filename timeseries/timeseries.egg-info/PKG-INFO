@@ -1,0 +1,11 @@
+Metadata-Version: 1.1
+Name: timeseries
+Version: 0.1.0.dev0
+Summary: CESM Time-Series Generation Tool.
+Home-page: UNKNOWN
+Author: Alice Bertini
+Author-email: aliceb@ucar.edu
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires: pyreshaper

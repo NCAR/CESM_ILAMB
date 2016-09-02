@@ -1,0 +1,11 @@
+Metadata-Version: 1.1
+Name: ilamb
+Version: 0.1.0.dev0
+Summary: ILAMB
+Home-page: UNKNOWN
+Author: Sheri Mickelson
+Author-email: mickelso@ucar.edu
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires: pyreshaper

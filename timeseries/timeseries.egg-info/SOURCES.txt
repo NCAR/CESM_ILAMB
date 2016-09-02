@@ -1,0 +1,8 @@
+setup.py
+timeseries/__init__.py
+timeseries/cesm_tseries_generator.py
+timeseries.egg-info/PKG-INFO
+timeseries.egg-info/SOURCES.txt
+timeseries.egg-info/dependency_links.txt
+timeseries.egg-info/top_level.txt
+timeseries.egg-info/zip-safe

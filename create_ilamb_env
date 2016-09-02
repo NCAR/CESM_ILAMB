@@ -1,0 +1,155 @@
+#!/bin/bash
+
+mkdir ilamb_env
+cd ilamb_env
+echo "########################################################"
+echo "# "
+echo "# Installing Miniconda"
+echo "#"
+echo "########################################################"
+wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+bash Miniconda2-latest-Linux-x86_64.sh  -b -p $PWD/miniconda
+export PATH=$PWD/miniconda/bin/:$PATH
+
+echo "########################################################"
+echo "# "
+echo "# Creating a Virtual Env for the ILAMB Package"
+echo "#"
+echo "########################################################"
+conda create -y --prefix $PWD/ilamb_env python
+
+
+echo "########################################################"
+echo "#"
+echo "# Activating the Virtual Env to Install Dependencies" 
+echo "#"
+echo "########################################################"
+source activate $PWD/ilamb_env
+
+
+echo "########################################################"
+echo "#"
+echo "# Installing numPy"
+echo "#"
+echo "########################################################"
+conda install -y numpy==1.7
+
+echo "########################################################"
+echo "#"
+echo "# Installing NetCDF4 (python version)"
+echo "#"
+echo "########################################################"
+conda install -y netCDF4==1.2.4 
+
+echo "########################################################"
+echo "#"
+echo "# Installing matplotlib"
+echo "#"
+echo "########################################################"
+conda install -y matplotlib
+
+echo "########################################################"
+echo "#"
+echo "# Installing sympy"
+echo "#"
+echo "########################################################"
+conda install -y sympy
+
+echo "########################################################"
+echo "#"
+echo "# Installing mpi4py"
+echo "#"
+echo "########################################################"
+conda install -y mpi4py
+
+echo "########################################################"
+echo "#"
+echo "# Installing basemap"
+echo "#"
+echo "########################################################"
+conda install -y basemap
+
+echo "########################################################"
+echo "#"
+echo "# Installing ilamb package"
+echo "#"
+echo "########################################################"
+git clone https://bitbucket.org/ncollier/ilamb
+cd ilamb
+python setup.py install
+cd ../
+
+echo "#############################################################"
+echo "#"
+echo "# Installing the udunits library and add to LD_LIBRARY PATH"
+echo "#"
+echo "############################################################"
+cd ilamb_env/lib/
+wget ftp://ftp.unidata.ucar.edu/pub/udunits/udunits-2.2.20.tar.gz
+tar -xvzf udunits-2.2.20.tar.gz
+cd udunits-2.2.20
+./configure --prefix $PWD
+make install
+
+cd ../../../
+mkdir -p $PWD/ilamb_env/etc/conda/activate.d
+mkdir -p $PWD/ilamb_env/etc/conda/deactivate.d
+
+touch $PWD/ilamb_env/etc/conda/deactivate.d/env_vars.sh
+echo "#! /bin/sh" >> $PWD/ilamb_env/etc/conda/activate.d/env_vars.sh
+echo "export LD_LIBRARY_PATH=$PWD/ilamb_env/lib/udunits-2.2.20/lib/:$LD_LIBRARY_PATH" >> $PWD/ilamb_env/etc/conda/activate.d/env_vars.sh
+
+echo "########################################################"
+echo "#"
+echo "# Installing cfunits"
+echo "#"
+echo "########################################################"
+pip install cfunits
+
+echo "########################################################"
+echo "#"
+echo "# Installing pynio"
+echo "#"
+echo "########################################################"
+conda install -y --channel dbrown pynio
+
+echo "########################################################"
+echo "#"
+echo "# Installing asaptools"
+echo "#"
+echo "########################################################"
+pip install asaptools
+
+echo "########################################################"
+echo "#"
+echo "# Installing pyreshaper"
+echo "#"
+echo "########################################################"
+pip install pyreshaper
+
+echo "########################################################"
+echo "#"
+echo "# List of all packages that have been installed into "
+echo "# the ilamb_env"
+echo "#"
+echo "########################################################"
+conda list
+
+echo "########################################################"
+echo "#"
+echo "# Installing CESM/ILAMB wrappers"
+echo "#"
+echo "########################################################"
+python ../ilamb/setup.py install 
+cp ../ilamb/ilamb/clm_to_mip ilamb_env/bin
+
+echo "##########################################################"
+echo "#"
+echo "# Test build, version number will appear if build is okay"
+echo "#"
+echo "##########################################################"
+export LD_LIBRARY_PATH=$PWD/ilamb_env/lib/udunits-2.2.20/lib/:$LD_LIBRARY_PATH
+python -c "import ILAMB; print ILAMB.__version__"
+
+source deactivate
+

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+
+<config_definition version="1.0">
+
+  <!-- ======================================================================= -->
+  <!-- env_postprocess.xml                                                     -->
+  <!-- ======================================================================= -->
+
+
+  <groups>
+    <group name="ilamb_globals">
+      <order>0</order>
+      <comment>Global variables for the ILAMB diagnostics</comment>
+
+      <entry id="ILAMB_ROOT"
+             type="string"
+             valid_values=""  
+             value="/root/dir/to/place/obs/and/model/data/"
+             group="ilamb_globals"
+             desc="the full/absolute path to where the obs and model data will be pulled from by the ilamb package.  This directory will be created and filled with links to both the obs and model directiories."
+             ></entry>
+
+      <entry id="POSTPROCESS_PATH"
+             type="string"
+             valid_values=""  
+             value="inherit"
+             group="case_info"
+             desc="post processing directory location on local machine where ilamb_env python virtualenv is located."
+             ></entry>
+
+      <entry id="NETCDF_FORMAT"
+             type="string"
+             valid_values="netcdf,netcdf4,netcdf4c"  
+             value="netcdf4c"
+             group="case_info"
+             desc="netcdf file format to write out as"
+             ></entry>
+
+      <entry id="BUILD_DIR"
+             type="string"
+             valid_values=""  
+             value="/full/path/to/ilamb/output/"
+             group="case_info"
+             desc="the full path to the ilamb output"
+             ></entry>
+
+      <entry id="OBS_DATA__1"
+             type="string"
+             valid_values=""  
+             value="/full/path/to/obs/data/"
+             group="case_info"
+             desc="the full/absolute path to where the obs data is located.  More obs data can be linked by cutting/pasting this field and incrementing the identifier string."
+             ></entry>
+    </group>
+
+    <group name="case_info">
+      <order>1</order>
+      <comment>Information about the runs to be processed.  More cases can be added by cutting/pasting this group of variables and by incrementing the identifier string.  These will be all of the cases that will be compared by ilamb.</comment>
+
+      <entry id="FILE_PREFIX__1"
+	     type="string"
+	     valid_values=""  
+	     value="case_to_compare"
+	     group="case_info"
+	     desc="case name - including model and stream"
+	     ></entry> 
+
+      <entry id="YEARS__1"
+	     type="string"
+	     valid_values=""  
+	     value="000101-002012"
+	     group="case_info"
+	     desc="location of postprocess directory created in the caseroot on local disk"
+	     ></entry> 
+
+      <entry id="CASE_PATH__1"
+             type="string"
+             valid_values=""  
+             value="$DOUT_S_ROOT/lnd/hist/"
+             group="case_info"
+             desc="the full,abosolute path to the input dataset"
+             ></entry>
+
+      <entry id="TIMESERIES_OUTPUT_PATH__1"
+             type="string"
+             valid_values=""  
+             value="$DOUT_S_ROOT/lnd/proc/tseries/"
+             group="case_info"             
+             desc="the full,abosolute path for the timeseries output"
+             ></entry>
+
+      <entry id="MIP_OUTPUT_PATH__1"
+             type="string"
+             valid_values=""  
+             value="$DOUT_S_ROOT/lnd/proc/mip/"
+             group="case_info"             
+             desc="the full,abosolute path for the MIP output"
+             ></entry>
+
+      <entry id="EXPERIMENT__1"
+             type="string"
+             valid_values=""  
+             value="historical"
+             group="case_info"             
+             desc="the type of experiment"
+             ></entry>
+
+      <entry id="MODEL__1"
+             type="string"
+             valid_values=""  
+             value="CLM5"
+             group="case_info"             
+             desc="model name"
+             ></entry>
+
+      <entry id="CONVERT_TO_TS__1"
+             type="string"
+             valid_values=""  
+             value="TRUE"
+             group="case_info"             
+             desc="convert to timeseries format"
+             ></entry>
+
+      <entry id="CONVERT_TO_CMIP__1"
+             type="string"
+             valid_values=""  
+             value="TRUE"
+             group="case_info"             
+             desc="convert to MIP format"
+             ></entry>
+
+      <entry id="TIME_VARIANT_VARS__1"
+             type="string"
+             valid_values=""
+             value="date_written,mcdate,mcsec,mdcur,ms,cur,nstep,time,time_bounds,time_written"
+             group="case_info"
+             desc="time variant variables that should be written to all time series files"
+             ></entry>
+    </group>
+
+  </groups>
+
+</config_definition>
